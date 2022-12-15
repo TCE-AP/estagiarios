@@ -1,6 +1,8 @@
 import readline from "readline-sync";
 
+export const systemName = "Sistema ESTAGIARIOS";
 export const line = '===================================================';
+
 
 export function read(message) {
   return readline.question(message);
@@ -61,4 +63,11 @@ export async function loading(){
     line +='█';
     await  sleep(10);    
   }
+}
+
+
+export function top() {  
+  write('════════════════════════════════════════════════════════════════════');
+  write("  " + textColor(systemName, "blue"));
+  write('════════════════════════════════════════════════════════════════════');  
 }

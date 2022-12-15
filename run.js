@@ -1,59 +1,37 @@
-import {
-    clearScreen,
-    line,
-    loading,
-    read, readPassword,
-    textColor,
-    write
-} from "./utils/functions.mjs";
+import {  clearScreen, line, loading, readChar, systemName, textColor, top, write } from "./utils/functions.mjs";
+import { login } from './login/login.mjs'
+import { calc } from './calculadora/calc.mjs';
+import { media } from './media/media.mjs'
 
 
-const password = "senha";
-const systemName = "Sistema ESTAGIARIOS";
 
 
-function login() {
-  let pass = "";
-  let login = "";
-  let cont = 0;
-  while (pass != password) {
+function menu(){
+  let key = ''  
+  while  (key != '0') {
     clearScreen();
-    write(line);
-    write(" Bem vindo ao " + textColor(systemName, "yellow"));
-    write(line);
-    write("");
+    top();
+    write(textColor('1', 'yellow') + ' - Programa de Soma');
+    write(textColor('2', 'yellow') + ' - Programa de Média');
+    write(textColor('0', 'yellow') + ' - Finalizar Programa');
+    write('');
+    key = readChar('Escolha sua opcao: ', '$1$2$0');
 
-    if (pass != "") {
-      write(textColor("Login /ou/ Senha invalidos", "red"));
-      write("");
-      cont++;
-    }
-
-    login = read("Login: ");
-    pass = readPassword("Senha: ");
-    if (cont === 2) {
-      write("");
-      write("Numeros de tentativas excedidas.. programa sera finalizado");
-      write("Pressione ENTER para finalizar");
-      read("");
-      return "";
-    }
+    if (key === '1') {
+       calc();
+    } else if (key === '2') {
+      media();
+   }
   }
-  return login;
 }
+
 
 async function program() {
-  let user = login();
-
+  let user = login(systemName);
   if (user != "") {
-    clearScreen();
-    write(user + "  seja bem vindo!!!!");
-    write("Aqui faria meu programa");
-  } else {
-    write("Voce teve o acesso negado");
-    write("Acabou meu programa");
-  }
+    menu();
+  } 
 }
-
-await loading(); // aqui chamo o carregando
+// await loading(); // aqui chamo o carregando
 program(); // aqui chamo meu programa
+
